@@ -21,15 +21,20 @@ print(wsb['weekday'].head(20))
 xs = wsb['weekday'].value_counts().index
 ys = wsb['weekday'].value_counts().values
 
+colour_dict = dict({'Monday':'cornflowerblue',
+                  'Tuesday':'royalblue',
+                  'Wednesday': 'blue',
+                  'Thursday': 'mediumblue',
+                   'Friday': 'darkblue',
+                   'Saturday': 'darkslateblue',
+                   'Sunday': 'rebeccapurple'})
 
 fig, ax = plt.subplots(figsize=(15,7))
-#plt.figure(figsize=(14,6))
-
-sns.barplot(x=xs, y=ys, order=days_order)
+sns.barplot(x=xs, y=ys, order=days_order, palette=colour_dict)
 
 plt.title("Number of r/WallSreetBets Forum Posts", fontsize=15)
 
-plt.xlabel("Days", fontsize=15)
+plt.xlabel("Days of the Week", fontsize=15)
 plt.ylabel("Number of Posts", fontsize=15)
 
 plt.show()
