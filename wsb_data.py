@@ -36,7 +36,7 @@ print(missing_data(wsb))
 wsb.fillna('n/a', inplace=True)
 print(missing_data(wsb))
 
-wsb_data = wsb[(wsb['score'] > 7000) & (wsb['comms_num'] > 500)]
+wsb_data = wsb[(wsb['score'] > 10000) & (wsb['comms_num'] > 1000)]
 print('WSB DATA')
 print(wsb_data)
 
@@ -44,11 +44,21 @@ print('MAX SCORE')
 max_score = wsb.loc[wsb['score'].idxmax()]
 print(max_score)
 
+wsb_friday = wsb_data.loc[wsb_data['date'] == '2021-01-29']
+print(wsb_friday.shape)
+
 
 sns.set(style="darkgrid")
 fig, ax = plt.subplots(figsize=(15,7))
-plot = sns.scatterplot(ax=ax, x=wsb_data['score'].values, y=wsb_data['date'].values, hue='score', legend='brief', label='Score')
-plt.xlabel('Score of Post')
-plt.ylabel('# of Comments')
-plt.title('r/WSB')
+plot = sns.barplot(ax=ax, x=wsb_friday['comms_num'].values, y=wsb_friday['score'].values, palette='Blues_d')
+for ind, label in enumerate(plot.get_xticklabels()):
+    if ind % 3 == 0:
+        label.set_visible(True)
+    else:
+        label.set_visible(False)
+plt.xlabel('Number of Comments')
+plt.ylabel('Score of Post')
+plt.title('r/WallSteetBets Posts')
 plt.show()
+
+fig.savefig('graphs/wsb_posts.png')

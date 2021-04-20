@@ -12,29 +12,25 @@ doge['doge_vol_diff'] = doge['volume'].diff(periods=1);
 doge['change'] = ((doge['high'] - doge['low']) / doge['high']) * 100
 doge['date'] = pd.to_datetime(doge['date'])
 
-#doge['date'] = pd.date_range('2021-01-01', periods=200, freq='D')
-#doge = doge.set_index(['date'])
-#print(doge.loc['2021-01-26':'2021-02-12'])
-
-doge_cols = doge.iloc[:, [0,2]]
-print(doge_cols)
-doge_cols.set_index(['date'])
-doge_sub = doge_cols['date'].loc['2021-01-06':'2021-02-10']
-print(doge_sub)
+doge_range = doge[doge['date'].isin(pd.date_range('2021-01-20', '2021-04-05'))]
 
 sns.set(style="darkgrid")
 color = sns.color_palette()[2]
 
 fig1, ax = plt.subplots(figsize=(15,7))
-plot = sns.lineplot(ax=ax, x=doge_sub['date'].values, y=doge_sub['high'], color='g')
-ax.set(xticks=doge_sub['date'].values)
-x_dates = doge_sub['date'].dt.strftime('%Y-%m-%d')
+plot = sns.lineplot(ax=ax, x=doge_range['date'].values, y=doge_range['change'].values, color='g')
+ax.set(xticks=doge_range['date'].values)
+x_dates = doge_range['date'].dt.strftime('%b-%d')
 ax.set_xticklabels(labels=x_dates, rotation=45, ha='right')
 plt.ticklabel_format(style='plain', axis='y')
 ax.get_yaxis().set_major_formatter(
     mtl.ticker.FuncFormatter(lambda y, p: format(int(y), ',')))
-#        label.set_visible(False)
+for ind, label in enumerate(plot.get_xticklabels()):
+    if ind % 2 == 0:
+        label.set_visible(True)
+    else:
+        label.set_visible(False)
 plt.xlabel('Date')
-plt.ylabel('Volume')
-plt.title('Plot of GME Volume')
+plt.ylabel('% Change in SP')
+plt.title('Plot of DOGE SP Change')
 plt.show()

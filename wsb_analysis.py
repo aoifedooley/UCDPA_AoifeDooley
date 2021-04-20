@@ -1,9 +1,9 @@
+# REF: https://www.kaggle.com/sprakshith/beginner-s-guide-to-sentiment-analysis
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
-
-# REF: https://www.kaggle.com/sprakshith/beginner-s-guide-to-sentiment-analysis
 
 wsb = pd.read_csv(r"reddit_wsb.csv")
 
@@ -21,13 +21,13 @@ print(wsb['weekday'].head(20))
 xs = wsb['weekday'].value_counts().index
 ys = wsb['weekday'].value_counts().values
 
-colour_dict = dict({'Monday':'cornflowerblue',
-                  'Tuesday':'royalblue',
-                  'Wednesday': 'blue',
+colour_dict = dict({'Monday':'dodgerblue',
+                  'Tuesday':'cornflowerblue',
+                  'Wednesday': 'royalblue',
                   'Thursday': 'mediumblue',
                    'Friday': 'darkblue',
-                   'Saturday': 'darkslateblue',
-                   'Sunday': 'rebeccapurple'})
+                   'Saturday': 'midnightblue',
+                   'Sunday': 'navy'})
 
 fig, ax = plt.subplots(figsize=(15,7))
 sns.barplot(x=xs, y=ys, order=days_order, palette=colour_dict)
@@ -39,4 +39,4 @@ plt.ylabel("Number of Posts", fontsize=15)
 
 plt.show()
 
-fig.savefig('wsb_weekdays.png')
+fig.savefig('graphs/wsb_weekdays.png')

@@ -1,6 +1,3 @@
-# merge gme and doge
-# compare volume over month of dec jan and feb - distplot
-
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib as mtl
@@ -42,36 +39,20 @@ print(date_range)
 sns.set(style="darkgrid")
 color = sns.color_palette()[2]
 
-fig1, ax = plt.subplots(figsize=(15,7))
+fig, ax = plt.subplots(figsize=(15,7))
 plot = sns.lineplot(ax=ax, x=date_range['date'].values, y=date_range['vol_diff_gme'], color='cornflowerblue', label='GME')
 plot = sns.lineplot(ax=ax, x=date_range['date'].values, y=date_range['vol_diff_doge'], color='midnightblue', label='DOGE')
 ax.set(xticks=date_range['date'].values)
-x_dates = date_range['date'].dt.strftime('%Y-%m-%d')
+x_dates = date_range['date'].dt.strftime('%b-%d')
 ax.set_xticklabels(labels=x_dates, rotation=45, ha='right')
 plt.ticklabel_format(style='plain', axis='y')
 ax.get_yaxis().set_major_formatter(
     mtl.ticker.FuncFormatter(lambda y, p: format(int(y), ',')))
 #        label.set_visible(False)
 plt.xlabel('Date')
-plt.ylabel('Volume')
-plt.title('Plot of GME Volume')
+plt.ylabel('Increase in Volume (%)')
+plt.title('Percentage Increase in Volume of GME and DOGE Shares Traded')
 plt.show()
 
-fig1.savefig('vol_analysis.png')
+fig.savefig('graphs/vol_analysis.png')
 
-
-#date_range_2 = gme_doge[gme_doge['date'].isin(pd.date_range('2020-01-01', '2021-03-05'))]
-
-fig2, ax = plt.subplots(figsize=(15,7))
-plot = sns.factorplot(ax=ax, x=date_range['vol_diff_gme'].values, y=date_range['vol_diff_doge'], color=color)
-#plot = sns.scatterplot(ax=ax, x=date_range['date'].values, y=date_range['low_gme'], color=color)
-ax.set(xticks=date_range['vol_diff_gme'].values)
-#x_dates = date_range['date'].dt.strftime('%Y-%m-%d')
-#ax.set_xticklabels(labels=x_dates, rotation=45, ha='right')
-plt.ticklabel_format(style='plain', axis='y')
-#ax.get_yaxis().set_major_formatter(
-#    mtl.ticker.FuncFormatter(lambda y, p: format(int(y), ',')))
-plt.xlabel('Date')
-plt.ylabel('Volume')
-plt.title('GME High Share Price')
-plt.show()

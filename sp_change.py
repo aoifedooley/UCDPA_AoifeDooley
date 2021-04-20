@@ -50,17 +50,12 @@ ax.set_xticklabels(labels=x_dates, rotation=45, ha='right')
 plt.ticklabel_format(style='plain', axis='y')
 ax.get_yaxis().set_major_formatter(
     mtl.ticker.FuncFormatter(lambda y, p: format(int(y), ',')))
-#for ind, label in enumerate(plot.get_xticklabels()):
-#    if ind % 10 == 0:  # every 10th label is kept
-#        label.set_visible(True)
-#    else:
-#        label.set_visible(False)
 plt.xlabel('Date')
 plt.ylabel('Share Price Increase (%)')
 plt.title('Percentage Increase in Share Price of GME and DOGE')
 plt.show()
 
-fig.savefig('sp_change.png')
+fig.savefig('graphs/sp_change.png')
 
 
 
